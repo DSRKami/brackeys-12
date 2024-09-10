@@ -1,0 +1,102 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Movement : MonoBehaviour
+{
+    // Public Fields for adjusting settings in the Unity Editor
+    public float rotationSpeed = 200f;
+    public float thrustForce = 5f;
+    public float boostForce = 10f;
+    public float gravityForce = 1f;
+
+    private Rigidbody2D rb;
+    private Animator animator;
+    private bool isBoosting = false;
+    private bool isUsingFuel = false;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        // Get the Rigidbody2D component attached to the rocket
+        rb = GetComponent<Rigidbody2D>();
+
+        // Get the Animator component attached to the rocket
+        animator = GetComponent<Animator>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        animator.SetBool("IsBoosting", isBoosting);
+        animator.SetBool("IsUsingFuel", isUsingFuel);
+
+        ApplyRotation();
+        ApplyGravity();
+        RocketMove();
+    }
+
+    // Rotates the rocket based on player input
+    void ApplyRotation()
+    {
+        // Get Input Direction
+        float rotationInput = Input.GetAxis("Horizontal");
+
+        if (rotationInput != 0)
+        {
+            // Apply rotation based on the input and rotation speed
+            float rotation = rotationInput * rotationSpeed * Time.deltaTime;
+            rb.MoveRotation(rb.rotation - rotation); // Subtracting to make it rotate as expected
+        }
+        else
+        {
+            // Stop the rocket's rotation when there's no input
+            rb.angularVelocity = 0f;
+        }
+    }
+
+    // Applies thrust in the direction the rocket is facing
+    void RocketMove()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            ApplyThrust(ref boostForce, ref isUsingFuel);
+            return;
+        }
+        else
+        {
+            // Put animation in idle state
+            isUsingFuel = false;
+        }
+
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        {
+            ApplyThrust(ref thrustForce, ref isBoosting);
+        }
+        else
+        {
+            // Put animation in idle state
+            isBoosting = false;
+        }
+    }
+
+    // Simulates gravity by applying a constant downward force
+    void ApplyGravity()
+    {
+        // Apply a constant force downwards
+        rb.AddForce(Vector2.down * gravityForce);
+    }
+
+    void ApplyThrust(ref float force, ref bool animation)
+    {
+        // Calculate the direction the rocket is facing
+        Vector2 thrustDirection = transform.up;
+
+        // Apply force in the direction of thrust
+        rb.AddForce(thrustDirection * force);
+
+        // Update the Animation to show Thrust
+        animation = true;
+    }
+}
