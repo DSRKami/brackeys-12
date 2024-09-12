@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     public float thrustForce = 5f;
     public float boostForce = 10f;
     public float gravityForce = 1f;
+    public float terminalVelocity = 10f;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -35,6 +36,11 @@ public class Movement : MonoBehaviour
         ApplyRotation();
         ApplyGravity();
         RocketMove();
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            ResetVelocity(); // Velocity Reset mechanic
+        }
     }
 
     // Rotates the rocket based on player input
@@ -98,5 +104,11 @@ public class Movement : MonoBehaviour
 
         // Update the Animation to show Thrust
         animation = true;
+    }
+
+    void ResetVelocity()
+    {
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
     }
 }
