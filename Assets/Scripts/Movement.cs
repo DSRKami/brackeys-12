@@ -9,7 +9,6 @@ public class Movement : MonoBehaviour
     public float thrustForce = 5f;
     public float boostForce = 10f;
     public float gravityForce = 1f;
-    public float terminalVelocity = 10f;
 
     private Rigidbody2D rb;
     private Animator animator;
