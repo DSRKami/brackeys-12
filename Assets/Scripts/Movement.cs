@@ -35,6 +35,11 @@ public class Movement : MonoBehaviour
         ApplyRotation();
         ApplyGravity();
         RocketMove();
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            ResetVelocity(); // Velocity Reset mechanic
+        }
     }
 
     // Rotates the rocket based on player input
@@ -98,5 +103,11 @@ public class Movement : MonoBehaviour
 
         // Update the Animation to show Thrust
         animation = true;
+    }
+
+    void ResetVelocity()
+    {
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
     }
 }
