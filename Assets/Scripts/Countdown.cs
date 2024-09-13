@@ -19,6 +19,8 @@ public class Counter : MonoBehaviour
     [Range(0,10)] public float baseBlinkSpeed = 1;
     public float startBlinking = 10;
 
+    public LevelLoader loader;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,8 +67,14 @@ public class Counter : MonoBehaviour
         shouldBlink = false;
         countdownText.color = endColour;
         stopCountdown();
+
+        goToPlanet();
     }
 
+    public void goToPlanet()
+    {
+        loader.LoadLevel(2);
+    }
     public void startCountdown()
     {
         currentTime = startTime; 
