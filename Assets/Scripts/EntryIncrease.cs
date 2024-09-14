@@ -13,14 +13,16 @@ public class EntryIncrease : MonoBehaviour
     public float distanceValue = 159000f;
     public float targetDistanceValue = 69000f;
 
+    public float totalTime = 60f;
+
     // Start is called before the first frame update
     void Start()
     {
         // Start the gForce value variation
-        StartCoroutine(Approach.LerpValues(gForceValue, targetgForceValue, 60f, UpdateGForce));
+        StartCoroutine(Approach.LerpValues(gForceValue, targetgForceValue, totalTime, UpdateGForce));
 
         // Start the distance value variation
-        StartCoroutine(Approach.LerpValues(distanceValue, targetDistanceValue, 60f, UpdateDistance));
+        StartCoroutine(Approach.LerpValues(distanceValue, targetDistanceValue, totalTime, UpdateDistance));
     }
 
     // Update the gForce value as LerpValue progresses

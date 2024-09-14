@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RandomProjectileSpawner : MonoBehaviour
 {
-    public GameObject projectilePrefab; 
-    public GameObject player;
+    public GameObject projectilePrefab; // The projectile to spawn
+    public GameObject player; // Reference to the player
     public float spawnRadius;
     public float spawnInterval; 
 
@@ -17,11 +17,17 @@ public class RandomProjectileSpawner : MonoBehaviour
 
     void SpawnProjectile()
     {
-        // Generate a random position within a circle with the specified radius
-        Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
+        // Generate a random angle in radians
+        float randomAngle = Random.Range(0f, 2 * Mathf.PI);
 
-        // Instantiate the projectile at the random position
-        GameObject projectile = Instantiate(projectilePrefab, (Vector2)transform.position + randomPos, Quaternion.identity);
+        // Calculate the position on the circumference of the circle
+        Vector2 spawnPos = new Vector2(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle)) * spawnRadius;
+
+        // Calculate the world position by adding the spawn point to the spawner's position
+        Vector2 spawnPosition = (Vector2)transform.position + spawnPos;
+
+        // Instantiate the projectile at the calculated position
+        GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
 
         // The projectile's behavior (such as speed and self-destruction) will be handled by its own script
     }

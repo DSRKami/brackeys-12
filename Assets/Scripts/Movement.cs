@@ -19,9 +19,20 @@ public class Movement : MonoBehaviour
     private bool isUsingFuel = false;
 
 
+    public Color rotationColour = Color.cyan;
+    public float flashDuration = 0.1f;
+    private Color originalColour;
+    private SpriteRenderer sprite;
+    public GameObject locked;
+
     // Start is called before the first frame update
     void Start()
     {
+        locked.SetActive(false);
+
+        sprite = GetComponent<SpriteRenderer>();
+        originalColour = sprite.color;
+
         // Get the Rigidbody2D component attached to the rocket
         rb = GetComponent<Rigidbody2D>();
 
@@ -48,7 +59,6 @@ public class Movement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             ResetVelocity(); // Velocity Reset mechanic
-
         }
     }
 
@@ -74,8 +84,9 @@ public class Movement : MonoBehaviour
     // Applies thrust in the direction the rocket is facing
     void RocketMove()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && Metres.fuel > 1)
         {
+            Metres.fuel -= 0.1f;
             ApplyThrust(ref boostForce, ref isUsingFuel);
             return;
         }
@@ -120,6 +131,24 @@ public class Movement : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0f;
         rb.rotation = 0f;
+
+        StartCoroutine(ResetVelocityCoroutine());
+        StartCoroutine(LockCoroutine());
+    }
+
+    IEnumerator ResetVelocityCoroutine()
+    {
+        // Change the player's color to the flash color
+        sprite.color = rotationColour;
+        yield return new WaitForSeconds(flashDuration);
+        sprite.color = originalColour;
+    }
+
+    IEnumerator LockCoroutine()
+    {
+        locked.SetActive(true);
+        yield return new WaitForSeconds(0.3333f);
+        locked.SetActive(false);
     }
 
     // Callback function to update gravityForce as LerpValue progresses
