@@ -9,13 +9,15 @@ public class ProjectileBehaviour : MonoBehaviour
     public Rigidbody2D rb; 
     public float projectileSpeed; 
     public float TimeToSelfDestruct; 
-    public Animator AsteroidAnim; 
+    public Animator AsteroidAnim;
+    private bool _isBlocked = false;
 
     void Start()
     {
         AsteroidAnim = GetComponent<Animator>(); 
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player"); // Find player in the scene
+        
 
         // Get the direction towards the player
         Vector3 direction = (player.transform.position - transform.position).normalized;
@@ -39,12 +41,24 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) // Check if the projectile hit the player
+        if (collision.gameObject.CompareTag("Untagged")) // Check if the projectile hit the player
+        {
+            AsteroidAnim.Play("AsteroidExplosion"); 
+            
+            Debug.Log("Shield Hit");
+            _isBlocked = true;
+            // Optionally, you can trigger destruction or an effect here
+            Invoke("SelfDestruct", 0.6f); // Delay the self-destruction by 1 second after collision
+        }
+        else if (collision.gameObject.CompareTag("Player")) // Check if the projectile hit the player
         {
             AsteroidAnim.Play("AsteroidExplosion"); 
             
             Debug.Log("Player Hit");
-            Metres.scrap -= 10;
+            if (!_isBlocked)
+            {
+                Metres.scrap -= 10;
+            }
 
             // Optionally, you can trigger destruction or an effect here
             Invoke("SelfDestruct", 0.6f); // Delay the self-destruction by 1 second after collision
