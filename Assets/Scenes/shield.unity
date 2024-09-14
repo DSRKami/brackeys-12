@@ -170,17 +170,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2258299829054047041, guid: d7da407e6c4592e4e9809c0ba18f8d84, type: 3}
+      propertyPath: rotationSpeed
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 2332152758717702501, guid: d7da407e6c4592e4e9809c0ba18f8d84, type: 3}
       propertyPath: m_Name
       value: ShieldRocket
-      objectReference: {fileID: 0}
-    - target: {fileID: 4598841959564293714, guid: d7da407e6c4592e4e9809c0ba18f8d84, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 8037659728886684320, guid: d7da407e6c4592e4e9809c0ba18f8d84, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
