@@ -12,6 +12,8 @@ public class Counter : MonoBehaviour
     [SerializeField] private float currentTime;
     private Boolean countingDown = false;
 
+    public int levelToSwitch;
+
     public Color startColour = Color.white;
     public Color endColour = Color.red;
 
@@ -73,7 +75,10 @@ public class Counter : MonoBehaviour
 
     public void goToPlanet()
     {
-        loader.LoadLevel(2);
+        if (loader != null)
+        {
+            loader.LoadLevel(levelToSwitch);
+        }
     }
     public void startCountdown()
     {
