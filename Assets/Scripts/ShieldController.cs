@@ -14,7 +14,11 @@ public class ShieldController : MonoBehaviour
     public Transform shieldTransform;
     private SpriteRenderer _shieldRenderer;
     public float orbitRadius = 2f;
+    [SerializeField]
+    private float _windup = 1f;
 
+    private bool _isSheilding = false;
+    
     private void Awake()
     {
         _rocketInput = new RocketInput();
@@ -29,7 +33,7 @@ public class ShieldController : MonoBehaviour
     private void OnDisable()
     {
         _rocketInput.Rocket.Shield.Enable();
-        _rocketInput.Rocket.Shield.performed += Shield;
+        _rocketInput.Rocket.Shield.canceled += StopShield;
     }
 
     // Start is called before the first frame update
@@ -38,6 +42,7 @@ public class ShieldController : MonoBehaviour
         _main = Camera.main;
         // Cursor.visible = false;
         _shieldRenderer = gameObject.GetComponent<SpriteRenderer>();
+        
         if (_shieldRenderer == null)
         {
             Debug.LogError("SpriteRenderer component not found on the GameObject.");
@@ -46,6 +51,10 @@ public class ShieldController : MonoBehaviour
         {
             _shieldRenderer.color = Color.grey;
         }
+
+        Metres.energy = 100f;
+        Metres.scrap = 100f;
+
     }
 
     // Update is called once per frame
@@ -73,8 +82,31 @@ public class ShieldController : MonoBehaviour
         shieldTransform.rotation = Quaternion.Euler(0, 0, (_shieldAngle-90));
     }
 
-    private void Shield(InputAction.CallbackContext callbackContext)
+    private void Shield(InputAction.CallbackContext callbackContext){
+    
+        if (!_isSheilding)
+        {
+            StartCoroutine(ActivateShield());
+        }
+    }
+    
+    private void StopShield(InputAction.CallbackContext callbackContext){
+            StopCoroutine(ActivateShield());
+    }
+    
+    private IEnumerator ActivateShield()
     {
-        Debug.Log("Shield pressed");
+        _isSheilding = true;
+
+        while (Metres.energy >= 1)
+        {
+            Metres.energy -= 1;
+            Debug.Log("Shield activated, energy left: " + Metres.energy);
+
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        Debug.Log("Shield deactivated, not enough energy");
+        _isSheilding = false;
     }
 }
