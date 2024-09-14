@@ -1,0 +1,34 @@
+{
+    "name": "RocketInput",
+    "maps": [
+        {
+            "name": "Rocket",
+            "id": "02c8b761-0c4a-4bb5-8218-177b2486cd58",
+            "actions": [
+                {
+                    "name": "Shield",
+                    "type": "Button",
+                    "id": "f9a61042-5ca1-49ee-8b8e-6e8f49761e8c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "595cc089-2f2a-4021-b182-20aaf063a054",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shield",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
