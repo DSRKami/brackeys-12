@@ -15,4 +15,14 @@ public class Menu : MonoBehaviour
     {
         
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+
+        // This line is only for the Unity editor to simulate quitting
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+    }
 }
