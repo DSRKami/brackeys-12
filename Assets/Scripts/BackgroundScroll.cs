@@ -5,15 +5,23 @@ using UnityEngine;
 public class BackgroundScroll : MonoBehaviour
 {
     public float scrollSpeed = 0.5f;  // Base speed of the scrolling
-    public Vector2 scrollDirection = new Vector2(1, -1);  // Scroll direction, down-right by default
+    public float finalScrollSpeed = 0.1f; // Final speed of scrolling
+    public bool varySpeed; // Flag to whether or not speed will be varied
 
-    private Material bgMaterial;          // Material of the background's sprite renderer
-    private Vector2 offset;               // Offset value for scrolling
+    public Vector2 scrollDirection = new Vector2(1, -1);  // Scroll direction which is down-right by default
+
+    private Material bgMaterial; // Material of the background's sprite renderer
+    private Vector2 offset; // Offset value for scrolling
 
     void Start()
     {
-        // Get the material of the background's sprite renderer
         bgMaterial = GetComponent<SpriteRenderer>().material;
+
+        if (varySpeed)
+        {
+            // Start the variation in background speed with approach to the planet
+            StartCoroutine(Approach.LerpValues(scrollSpeed, finalScrollSpeed, 60f, UpdateScrollSpeed));
+        }
     }
 
     void Update()
@@ -31,6 +39,11 @@ public class BackgroundScroll : MonoBehaviour
 
         // Update the material's texture offset to create the scrolling effect
         bgMaterial.mainTextureOffset += offset;
+    }
+
+    void UpdateScrollSpeed(float newScrollSpeed)
+    {
+        scrollSpeed = newScrollSpeed;
     }
 }
 

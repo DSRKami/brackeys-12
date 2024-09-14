@@ -5,6 +5,7 @@ using UnityEngine;
 public class FollowObject : MonoBehaviour
 {
     public Transform target;
+    public float ZRotation = 0f; // Desired Z rotation input by the user
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,6 @@ public class FollowObject : MonoBehaviour
         transform.position = target.position;
 
         // Reset the rotation to avoid following the rocket's rotation
-        transform.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.Euler(0f, 0f, ZRotation);
     }
 }

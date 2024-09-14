@@ -9,6 +9,9 @@ public class Movement : MonoBehaviour
     public float thrustForce = 5f;
     public float boostForce = 10f;
     public float gravityForce = 1f;
+    public float finalGForce = 3f;
+
+    public bool varyGravity;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -24,6 +27,12 @@ public class Movement : MonoBehaviour
 
         // Get the Animator component attached to the rocket
         animator = GetComponent<Animator>();
+
+        if (varyGravity)
+        {
+            // Start the gravity variation over 60 seconds
+            StartCoroutine(Approach.LerpValues(gravityForce, finalGForce, 60f, UpdateGravityForce));
+        }
     }
 
     // Update is called once per frame
@@ -39,6 +48,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             ResetVelocity(); // Velocity Reset mechanic
+
         }
     }
 
@@ -109,5 +119,12 @@ public class Movement : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0f;
+        rb.rotation = 0f;
+    }
+
+    // Callback function to update gravityForce as LerpValue progresses
+    void UpdateGravityForce(float newGravityValue)
+    {
+        gravityForce = newGravityValue;
     }
 }

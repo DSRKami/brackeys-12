@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -40,6 +41,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Furthest
+    uniqueID: 2862599947
+    locked: 0
+  - name: Middle
+    uniqueID: 3106087967
+    locked: 0
+  - name: Front
+    uniqueID: 816518907
     locked: 0
   - name: Player
     uniqueID: 566810145
