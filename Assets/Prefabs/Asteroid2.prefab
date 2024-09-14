@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6033262139330410961}
   - component: {fileID: 226999091370940468}
   - component: {fileID: 983341199464821576}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Asteroid2
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 566810145
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 1474834215, guid: f8d73bfe7de4d434caf7dbad0e43f500, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -154,15 +154,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7452601309014333378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 442f75bf23cd6ad4b8d93298e526ba6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 80d1ca31dfe87d34f92f68ef1d2f2771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   self: {fileID: 7452601309014333378}
-  player: {fileID: 0}
+  player: {fileID: 2332152758717702501, guid: d7da407e6c4592e4e9809c0ba18f8d84, type: 3}
   rb: {fileID: 226999091370940468}
-  projectileSpeed: 7
+  projectileSpeed: 8
   TimeToSelfDestruct: 5
-  ProjectileType: 2
+  ProjectileType: 1
   AsteroidAnim: {fileID: 4602956544200238782}
 --- !u!50 &226999091370940468
 Rigidbody2D:

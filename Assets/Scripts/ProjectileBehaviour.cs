@@ -9,7 +9,6 @@ public class ProjectileBehaviour : MonoBehaviour
     public Rigidbody2D rb; 
     public float projectileSpeed; 
     public float TimeToSelfDestruct; 
-    public int ProjectileType;
     public Animator AsteroidAnim; 
 
     void Start()
@@ -45,6 +44,7 @@ public class ProjectileBehaviour : MonoBehaviour
             AsteroidAnim.Play("AsteroidExplosion"); 
             
             Debug.Log("Player Hit");
+            Metres.scrap -= 10;
 
             // Optionally, you can trigger destruction or an effect here
             Invoke("SelfDestruct", 0.6f); // Delay the self-destruction by 1 second after collision
@@ -53,14 +53,12 @@ public class ProjectileBehaviour : MonoBehaviour
 
     void Update()
     {
-      
         Invoke("SelfDestruct", TimeToSelfDestruct);
     }
 
- 
     void SelfDestruct()
     {
-        self.SetActive(false); // Disable the projectile
+        Destroy(self);
     }
 }
 //DISCLAIMER :AI assistance was used for section required to keep the asteroid's rotation to face the player
